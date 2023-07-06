@@ -1,0 +1,8 @@
+name: FCaF-Core
+version: '${version}'
+main: fr.tartur.fcaf.FCaF_Core
+api-version: '1.20'
+prefix: FCaF Core
+authors: [Tartur_]
+description: Core plugin of the FCaF project.
+website: https://arthur-barbera.me/
