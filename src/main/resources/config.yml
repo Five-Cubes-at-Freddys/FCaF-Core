@@ -1,0 +1,24 @@
+# Database settings
+database:
+  # Used database service <mysql/mariadb/postegresql/sqlite>
+  service: sqlite
+
+  # Path to the db file. Only for SQLite service.
+  sqlite_path: "database/"
+
+  ################################################## Others services ###################################################
+  # The settings of this section is reserved for all others services.
+  # If you are using SQLite, you can ignore this data.
+
+  other:
+    host: "localhost"
+    user: "root"
+    pass: ""
+    port: 3306
+  ######################################################################################################################
+
+  # Name of the database. If your service is sqlite, please do not insert the ".db" extension.
+  name: "minecraft_server"
+
+  # Name of the database that manages user data (must be present in database.names).
+  users_table: "users"
