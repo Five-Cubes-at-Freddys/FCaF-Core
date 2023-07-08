@@ -1,6 +1,6 @@
 name: FCaF-Core
 version: '${version}'
-main: fr.tartur.fcaf.FCaF_Core
+main: fr.tartur.fcaf.Core
 api-version: '1.20'
 prefix: FCaF Core
 authors: [Tartur_]

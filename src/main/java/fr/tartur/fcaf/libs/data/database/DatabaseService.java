@@ -4,8 +4,7 @@ public enum DatabaseService {
 
     MYSQL("com.mysql.cj.jdbc.Driver"),
     POSTGRESQL("org.postgresql.Driver"),
-    MARIADB("org.mariadb.jdbc.Driver"),
-    SQLITE("");
+    MARIADB("org.mariadb.jdbc.Driver");
 
     private final String driverPackage;
 

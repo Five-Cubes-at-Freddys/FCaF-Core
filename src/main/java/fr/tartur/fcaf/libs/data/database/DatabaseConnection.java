@@ -44,11 +44,6 @@ public class DatabaseConnection extends BaseDatabaseConnection {
             return this;
         }
 
-        public Builder service(DatabaseService service) {
-            this.service = service;
-            return this;
-        }
-
         public Builder host(String host) {
             this.host = host;
             return this;
@@ -86,7 +81,7 @@ public class DatabaseConnection extends BaseDatabaseConnection {
     }
 
     public DatabaseConnection(DatabaseService service, String host, int port, String dbName, String usersTableName, String user, String pass) {
-        super("jdbc:" + service.name().toLowerCase() + "://" + host + (port >= 0 ? ":" + port : "") + "/" + dbName, dbName, usersTableName, service);
+        super("jdbc:" + service.name().toLowerCase() + "://" + host + (port >= 0 ? ":" + port : "") + "/" + dbName, dbName, usersTableName);
 
         this.user = user;
         this.pass = pass;

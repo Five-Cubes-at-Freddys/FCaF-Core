@@ -25,7 +25,7 @@ public class FPlayerData {
 
     public void pull(BaseDatabaseConnection usersDatabase) {
         try {
-            PreparedStatement pullRequest = usersDatabase.get().prepareStatement("SELECT fazcoins, fazbadges, exp FROM " +
+            PreparedStatement pullRequest = usersDatabase.get().prepareStatement("SELECT fazcoins, fazbadges, experience FROM " +
                     usersDatabase.getUsersTableName() + " WHERE uuid = ?");
             pullRequest.setString(1, player.bukkit().getUniqueId().toString());
 

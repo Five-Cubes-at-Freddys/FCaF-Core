@@ -5,17 +5,20 @@ import java.sql.SQLException;
 
 public abstract class BaseDatabaseConnection {
 
+    public static final String SERVICE = "sqlite";
+    public static final String DATABASE_NAME = "minecraft_server";
+    public static final String USERS_TABLE_NAME = "users";
+
     protected final String uri;
     protected final String dbName;
     protected final String usersTableName;
-    protected final DatabaseService service;
+
     protected Connection connection;
 
-    public BaseDatabaseConnection(String uri, String dbName, String usersTableName, DatabaseService service) {
+    public BaseDatabaseConnection(String uri, String dbName, String usersTableName) {
         this.uri = uri;
         this.dbName = dbName;
         this.usersTableName = usersTableName;
-        this.service = service;
     }
 
     protected abstract void connect() throws SQLException;
@@ -26,7 +29,7 @@ public abstract class BaseDatabaseConnection {
             return true;
         } catch (SQLException e) {
             System.err.println("Une erreur est survenue lors de la tentative de connexion à la base de données " +
-                    "d'adresse " + this.uri + ": " + e.getMessage() + "\nPlus d'informations: " + e);
+                    "d'adresse " + this.uri + ".\nPlus d'informations: " + e);
             return false;
         }
     }
@@ -49,15 +52,7 @@ public abstract class BaseDatabaseConnection {
         }
     }
 
-    public String getDatabaseName() {
-        return this.dbName;
-    }
-
     public String getUsersTableName() {
-        return usersTableName;
-    }
-
-    public DatabaseService getService() {
-        return this.service;
+        return this.usersTableName;
     }
 }
