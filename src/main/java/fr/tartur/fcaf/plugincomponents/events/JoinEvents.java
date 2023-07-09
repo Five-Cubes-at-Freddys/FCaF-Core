@@ -1,4 +1,4 @@
-package fr.tartur.fcaf.events;
+package fr.tartur.fcaf.plugincomponents.events;
 
 import fr.tartur.fcaf.user.FPlayer;
 import fr.tartur.fcaf.user.FPlayerData;
@@ -20,7 +20,7 @@ public class JoinEvents implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
         FPlayer fPlayer = this.connectedFPlayers.connectPlayer(player);
-        FPlayerData data = fPlayer.getData();
+        FPlayerData data = fPlayer.data();
 
         player.sendMessage("§aBonjour, §e" + player.getName() + " §a!\n§6Tu as §c" + data.getFazCoins() + " FC§6, " +
                 "§c" + data.getFazBadges() + " FB §6et §c" + data.getExperience() + " EXP§6.");

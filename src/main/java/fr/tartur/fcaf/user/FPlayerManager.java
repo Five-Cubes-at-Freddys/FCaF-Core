@@ -24,7 +24,7 @@ public class FPlayerManager {
             return fcafPlayer.get();
         } else {
             FPlayer newFcafPlayer = new FPlayer(player);
-            newFcafPlayer.getData().pull(usersDatabase);
+            newFcafPlayer.data().pull(usersDatabase);
             this.connectedPlayers.add(newFcafPlayer);
             return newFcafPlayer;
         }
@@ -36,7 +36,7 @@ public class FPlayerManager {
 
     public void disconnectPlayer(FPlayer player) {
         if (this.connectedPlayers.contains(player)) {
-            player.getData().update(this.usersDatabase, false);
+            player.data().update(this.usersDatabase, false);
             this.connectedPlayers.remove(player);
         }
     }

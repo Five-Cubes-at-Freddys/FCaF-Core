@@ -6,15 +6,15 @@ public class FPlayer {
 
     private final Player player;
 
-    private final FPlayerData data;
+    private final FPlayerData fPlayerData;
 
     public FPlayer(Player player) {
         this.player = player;
-        this.data = new FPlayerData(this);
+        this.fPlayerData = new FPlayerData(this);
     }
 
-    public FPlayerData getData() {
-        return data;
+    public FPlayerData data() {
+        return fPlayerData;
     }
 
     public Player bukkit() {
