@@ -6,3 +6,7 @@ prefix: FCaF Core
 authors: [Tartur_]
 description: Core plugin of the FCaF project.
 website: https://arthur-barbera.me/
+commands:
+  fplayer:
+    description: Allows user data management.
+    permission: fcaf.fplayer
