@@ -30,6 +30,10 @@ public class FPlayerManager {
         }
     }
 
+    public Optional<FPlayer> findConnectedPlayer(String playerName) {
+        return connectedPlayers.stream().filter(fPlayer -> fPlayer.bukkit().getName().equals(playerName)).findAny();
+    }
+
     public FPlayer getConnectedPlayer(Player player) {
         return connectedPlayers.stream().filter(fPlayer -> fPlayer.bukkit().getUniqueId() == player.getUniqueId()).findFirst().orElseThrow();
     }

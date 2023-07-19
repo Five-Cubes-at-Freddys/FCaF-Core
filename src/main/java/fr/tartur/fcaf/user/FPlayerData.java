@@ -97,4 +97,16 @@ public class FPlayerData {
     public void setExperience(int experience) {
         this.experience = experience;
     }
+
+    public void addFazCoins(int fazCoins) {
+        this.fazCoins += fazCoins;
+    }
+
+    public void addFazBadges(int fazCoins) {
+        this.fazCoins += fazCoins;
+    }
+
+    public void addExperience(int fazCoins) {
+        this.fazCoins += fazCoins;
+    }
 }
