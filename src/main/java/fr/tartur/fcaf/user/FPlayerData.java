@@ -103,10 +103,10 @@ public class FPlayerData {
     }
 
     public void addFazBadges(int fazCoins) {
-        this.fazCoins += fazCoins;
+        this.fazBadges += fazCoins;
     }
 
     public void addExperience(int fazCoins) {
-        this.fazCoins += fazCoins;
+        this.experience += fazCoins;
     }
 }

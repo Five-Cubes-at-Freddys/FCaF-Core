@@ -33,10 +33,10 @@ public class AddCommand extends TargetedCommandRunner {
                     case "fazbadges", "fb" -> {
                         target.data().addFazBadges(amount);
                         MessageSender.tell(MessageType.SUCCESS, bTarget, "Vous avez reçu §4§l" + amount + " FB §a!", true);
-                        MessageSender.tell(MessageType.SUCCESS, sender, "§4§l" + amount + " FC §aont bien été ajoutés à §e" + bTarget.getName() + "§a.");
+                        MessageSender.tell(MessageType.SUCCESS, sender, "§4§l" + amount + " FB §aont bien été ajoutés à §e" + bTarget.getName() + "§a.");
                         return true;
                     }
-                    case "experience", "xp" -> {
+                    case "experience", "exp", "xp" -> {
                         target.data().addExperience(amount);
                         MessageSender.tell(MessageType.SUCCESS, bTarget, "Vous avez reçu §b§l" + amount + " EXP §a!", true);
                         MessageSender.tell(MessageType.SUCCESS, sender, "§b§l" + amount + " EXP §aont bien été ajoutés à §e" + bTarget.getName() + "§a.");
