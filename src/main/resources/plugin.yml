@@ -10,3 +10,5 @@ commands:
   fplayer:
     description: Allows user data management.
     permission: fcaf.fplayer
+  test:
+    description: This is a test command.
