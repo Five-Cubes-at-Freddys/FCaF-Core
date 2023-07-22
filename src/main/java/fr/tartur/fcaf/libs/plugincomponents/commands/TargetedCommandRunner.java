@@ -41,7 +41,6 @@ public abstract class TargetedCommandRunner extends BaseCommand {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         for (int i = getArgsStart(); i < args.length; i++) {
             String arg = args[i];
-            sender.sendMessage("Arg: " + arg + ", i: " + i);
 
             if (i == this.commandData.getPlayerIndex() && !this.commandData.hasTarget()) {
                 var foundPlayer = super.getData().getPlayerManager().findConnectedPlayer(arg);
@@ -57,21 +56,22 @@ public abstract class TargetedCommandRunner extends BaseCommand {
                 }
             }
 
-            sender.sendMessage("Out of loop");
-
             for (BaseCommand baseCommand : super.getData().getCommandHolder().getCommands()) {
                 TargetedCommandRunner targetedCommand = (TargetedCommandRunner) baseCommand;
-                sender.sendMessage("Command: " + baseCommand.getName() + ", index: " + baseCommand.getData().getIndex());
 
                 if (i == targetedCommand.getData().getIndex() && targetedCommand.getName().equalsIgnoreCase(arg)) {
-                    sender.sendMessage("Found!!!");
                     targetedCommand.getData().setTarget(this.commandData.getTarget());
                     return targetedCommand.onCommand(sender, command, arg, args);
                 }
             }
         }
 
-        return run(sender, tailFromCommandIndex(args));
+        if (!run(sender, tailFromCommandIndex(args))) {
+            sender.sendMessage("§cTapez \"/aide\" pour obtenir de l'aide.");
+            return false;
+        }
+
+        return true;
     }
 
     public TargetedCommandRunner setData(TargetedCommandData commandData) {
