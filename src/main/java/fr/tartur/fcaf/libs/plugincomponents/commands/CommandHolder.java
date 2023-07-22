@@ -22,7 +22,7 @@ public class CommandHolder {
             this.commands = new ArrayList<>();
         }
 
-        public Builder command(BaseCommand command) {
+        public Builder addCommand(BaseCommand command) {
             this.commands.add(command);
             return this;
         }
