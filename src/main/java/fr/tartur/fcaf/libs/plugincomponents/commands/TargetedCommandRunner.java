@@ -1,12 +1,9 @@
 package fr.tartur.fcaf.libs.plugincomponents.commands;
 
-import fr.tartur.fcaf.user.FPlayer;
-import fr.tartur.fcaf.user.FPlayerManager;
+import fr.tartur.fcaf.libs.plugincomponents.commands.data.TargetedCommandData;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Arrays;
 
 /**
  * Class used to define a command intended to act on a FPlayer.
@@ -16,45 +13,15 @@ import java.util.Arrays;
  */
 public abstract class TargetedCommandRunner extends BaseCommand {
 
-    protected final TargetedCommandRunner[] subCommands;
-    protected final int playerNameIndex;
-
-    protected FPlayer target;
+    protected TargetedCommandData commandData;
 
     /**
      * Class constructor.
-     * @param names           All command names, separated by a comma, especially used for subcommands to manage every case.
-     * @param argIndex        The index where the command is supposed to be. If value is -1 (or another negative number), it means that the current command is a parent command.
-     * @param playerNameIndex The index where the player name is supposed to be. The value cannot be negative. If target is already set, this field is useless.
-     * @param players         The connected fcaf players list.
-     * @param subCommands     The possible subcommands.
+     * @param name This command name.
      */
-    public TargetedCommandRunner(String names, int argIndex, int playerNameIndex, FPlayerManager players, BaseCommand... subCommands) {
-        super(names, argIndex, players, subCommands);
-        this.subCommands = new TargetedCommandRunner[super.subCommands.length];
-
-        if (playerNameIndex < 0) {
-            throw new IllegalArgumentException("The player name index cannot be negative.");
-        }
-
-        this.playerNameIndex = playerNameIndex;
-
-        for (int i = 0; i < super.subCommands.length; i++) {
-            if (!(super.subCommands[i] instanceof TargetedCommandRunner targetedCommandRunner)) {
-                throw new IllegalArgumentException("Only targeted subcommands can be created for a targeted parent command.");
-            }
-
-            this.subCommands[i] = targetedCommandRunner;
-        }
-    }
-
-    /**
-     * Class constructor with playerNameIndex set to 0.
-     * This constructor is used for targeted subcommands.
-     * @see #TargetedCommandRunner(String, int, int, FPlayerManager, BaseCommand...)
-     */
-    public TargetedCommandRunner(String names, int argIndex, FPlayerManager players, BaseCommand... subCommands) {
-        this(names, argIndex, 0, players, subCommands);
+    public TargetedCommandRunner(String name) {
+        super(name);
+        this.commandData = (TargetedCommandData) super.commandData;
     }
 
     /**
@@ -72,14 +39,17 @@ public abstract class TargetedCommandRunner extends BaseCommand {
      */
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        for (int i = 0; i < args.length; i++) {
+        for (int i = getArgsStart(); i < args.length; i++) {
             String arg = args[i];
+            sender.sendMessage("Arg: " + arg + ", i: " + i);
 
-            if (target == null && i == playerNameIndex) {
-                var foundPlayer = super.players.findConnectedPlayer(arg);
+            if (i == this.commandData.getPlayerIndex() && !this.commandData.hasTarget()) {
+                var foundPlayer = super.getData().getPlayerManager().findConnectedPlayer(arg);
 
                 if (foundPlayer.isPresent()) {
-                    target = foundPlayer.get();
+                    this.commandData.setTarget(foundPlayer.get());
+                    super.setData(this.commandData);
+
                     continue;
                 } else {
                     sender.sendMessage("§8[§4FCaF§8] §cLe joueur §e" + arg + "§c n'a pas pu être trouvé.");
@@ -87,22 +57,30 @@ public abstract class TargetedCommandRunner extends BaseCommand {
                 }
             }
 
-            for (TargetedCommandRunner targetedCommand : this.subCommands) {
-                if (i == targetedCommand.index && Arrays.stream(targetedCommand.names).anyMatch(name -> name.equalsIgnoreCase(arg))) {
-                    targetedCommand.setTarget(target);
-                    return targetedCommand.onCommand(sender, command, arg.toLowerCase(), tail(i, args));
+            sender.sendMessage("Out of loop");
+
+            for (BaseCommand baseCommand : super.getData().getCommandHolder().getCommands()) {
+                TargetedCommandRunner targetedCommand = (TargetedCommandRunner) baseCommand;
+                sender.sendMessage("Command: " + baseCommand.getName() + ", index: " + baseCommand.getData().getIndex());
+
+                if (i == targetedCommand.getData().getIndex() && targetedCommand.getName().equalsIgnoreCase(arg)) {
+                    sender.sendMessage("Found!!!");
+                    targetedCommand.getData().setTarget(this.commandData.getTarget());
+                    return targetedCommand.onCommand(sender, command, arg, args);
                 }
             }
         }
 
-        return run(sender, label, args);
+        return run(sender, tailFromCommandIndex(args));
     }
 
-    /**
-     * This method assigns the new target to this command.
-     * @param target The new command target.
-     */
-    protected void setTarget(FPlayer target) {
-        this.target = target;
+    public TargetedCommandRunner setData(TargetedCommandData commandData) {
+        super.setData(commandData);
+        this.commandData = commandData;
+        return this;
+    }
+
+    public TargetedCommandData getData() {
+        return this.commandData;
     }
 }
