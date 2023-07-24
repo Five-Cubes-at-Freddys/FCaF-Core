@@ -39,6 +39,8 @@ public abstract class TargetedCommandRunner extends BaseCommand {
      */
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        super.onCommand(sender, command, label, args);
+
         for (int i = getArgsStart(); i < args.length; i++) {
             String arg = args[i];
 

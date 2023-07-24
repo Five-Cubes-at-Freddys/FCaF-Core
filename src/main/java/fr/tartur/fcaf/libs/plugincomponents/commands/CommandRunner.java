@@ -12,8 +12,6 @@ import org.jetbrains.annotations.NotNull;
  */
 public abstract class CommandRunner extends BaseCommand {
 
-    // /commande souscommande arg
-
     /**
      * Default class constructor.
      *
@@ -35,6 +33,8 @@ public abstract class CommandRunner extends BaseCommand {
      */
     @Override
     public final boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        super.onCommand(sender, command, label, args);
+
         for (int i = getArgsStart(); i < args.length; i++) {
             for (BaseCommand baseCommand : super.getData().getCommandHolder().getCommands()) {
                 String arg = args[i];

@@ -1,11 +1,17 @@
 package fr.tartur.fcaf.libs.plugincomponents.commands;
 
 import fr.tartur.fcaf.libs.plugincomponents.commands.data.CommandData;
-import org.bukkit.command.CommandExecutor;
+import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabExecutor;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Class used to define more specific uses of a basic CommandExecutor.
@@ -14,11 +20,13 @@ import java.util.Arrays;
  * @author tarturr
  * @see org.bukkit.command.CommandExecutor
  */
-public abstract class BaseCommand implements CommandExecutor {
+public abstract class BaseCommand implements TabExecutor {
 
     protected final String name;
 
     protected CommandData commandData;
+
+    private BaseCommand correspondingCommand;
 
     /**
      * Default class constructor.
@@ -29,6 +37,42 @@ public abstract class BaseCommand implements CommandExecutor {
         this.name = name;
 
         this.commandData = null;
+    }
+
+    @Override
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        this.resetCorrespondingCommand();
+        return false;
+    }
+
+    @Override
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        int length = args.length - 1;
+
+        if (length > 0) {
+            String commandName = args[length];
+            Optional<BaseCommand> foundCommand = this.commandData.getCommandHolder().getCommands().stream()
+                    .filter(baseCommand -> baseCommand.getName().equals(commandName))
+                    .findAny();
+
+            foundCommand.ifPresent(this::setCorrespondingCommand);
+        }
+
+        if (!this.hasCorrespondingCommand()) {
+            List<BaseCommand> commands = this.commandData.getCommandHolder().getCommands().stream()
+                    .filter(targetedCommand -> targetedCommand.getData().getIndex() == length)
+                    .toList();
+
+            if (!commands.isEmpty()) {
+                return commands.stream().map(BaseCommand::getName).toList();
+            } else {
+                return Bukkit.getOnlinePlayers().stream()
+                        .map(Player::getName)
+                        .toList();
+            }
+        } else {
+            return this.correspondingCommand.onTabComplete(sender, command, label, args);
+        }
     }
 
     /**
@@ -69,5 +113,19 @@ public abstract class BaseCommand implements CommandExecutor {
 
     public int getArgsStart() {
         return this.commandData.getIndex() + 1;
+    }
+
+    private boolean hasCorrespondingCommand() {
+        return this.correspondingCommand != null;
+    }
+
+    public void setCorrespondingCommand(BaseCommand correspondingCommand) {
+        this.correspondingCommand = correspondingCommand;
+    }
+
+    private void resetCorrespondingCommand() {
+        if (this.hasCorrespondingCommand()) {
+            this.correspondingCommand = null;
+        }
     }
 }
