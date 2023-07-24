@@ -20,7 +20,6 @@ repositories {
 
 dependencies {
     compileOnly "io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT"
-    testImplementation 'com.github.seeseemelk:MockBukkit-v1.20:3.3.0'
 }
 
 def targetJavaVersion = 17
