@@ -6,6 +6,8 @@ import fr.tartur.fcaf.plugincomponents.commands.CommandRegisterer;
 import fr.tartur.fcaf.plugincomponents.commands.FPlayerCommand;
 import fr.tartur.fcaf.plugincomponents.commands.TestCommand;
 import fr.tartur.fcaf.plugincomponents.commands.playerdata.AddCommand;
+import fr.tartur.fcaf.plugincomponents.commands.playerdata.RemoveCommand;
+import fr.tartur.fcaf.plugincomponents.commands.playerdata.SetCommand;
 import fr.tartur.fcaf.plugincomponents.events.EventRegisterer;
 import fr.tartur.fcaf.libs.data.database.BaseDatabaseConnection;
 import fr.tartur.fcaf.libs.data.database.DatabaseConnectionEstablisher;
@@ -35,6 +37,8 @@ public final class Core extends JavaPlugin {
                         .setData(new TargetedCommandData(
                                 new CommandHolder.Builder()
                                         .addCommand(new AddCommand())
+                                        .addCommand(new RemoveCommand())
+                                        .addCommand(new SetCommand())
                                         .build()
                         ))
                 )
