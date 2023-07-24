@@ -2,7 +2,6 @@ package fr.tartur.fcaf.common.log;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.Sound;
 
 public class MessageSender {
 
@@ -12,6 +11,14 @@ public class MessageSender {
         message.append(type.getPrefix());
         for (String msg : messages) {
             message.append(type.getColor()).append(" ").append(msg);
+        }
+
+        if (messages.length > 0) {
+            String lastArg = messages[messages.length - 1];
+
+            if (!(lastArg.equals("!") || lastArg.equals("?")) && !lastArg.endsWith(".")) {
+                message.append(type.getColor()).append('.');
+            }
         }
 
         sender.sendMessage(message.toString());
