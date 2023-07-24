@@ -6,23 +6,25 @@ import org.bukkit.Sound;
 
 public class MessageSender {
 
-    public static void tell(MessageType type, CommandSender sender, String message, boolean playSound) {
-        sender.sendMessage(type.toString() + message);
+    public static void tell(MessageType type, CommandSender sender, boolean playSound, String... messages) {
+        StringBuilder message = new StringBuilder();
+
+        message.append(type.getPrefix());
+        for (String msg : messages) {
+            message.append(type.getColor()).append(" ").append(msg);
+        }
+
+        sender.sendMessage(message.toString());
 
         if (playSound) {
             if (sender instanceof Player player) {
-                player.playSound(player.getLocation(), switch (type) {
-                    case SUCCESS -> Sound.ENTITY_PLAYER_LEVELUP;
-                    case NOTE -> Sound.BLOCK_NOTE_BLOCK_PLING;
-                    case WARNING -> Sound.BLOCK_NOTE_BLOCK_SNARE;
-                    case ERROR -> Sound.ENTITY_CAT_DEATH;
-                }, 3.0f, 3.0f);
+                player.playSound(player.getLocation(), type.getSound(), 3.0f, type.getPitch());
             }
         }
     }
 
-    public static void tell(MessageType type, CommandSender sender, String message) {
-        tell(type, sender, message, false);
+    public static void tell(MessageType type, CommandSender sender, String... messages) {
+        tell(type, sender, false, messages);
     }
 
 }
