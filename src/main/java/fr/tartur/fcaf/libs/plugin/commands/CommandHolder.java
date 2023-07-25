@@ -1,4 +1,4 @@
-package fr.tartur.fcaf.libs.plugincomponents.commands;
+package fr.tartur.fcaf.libs.plugin.commands;
 
 import java.util.ArrayList;
 import java.util.List;

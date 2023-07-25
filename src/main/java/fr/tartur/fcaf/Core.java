@@ -1,14 +1,14 @@
 package fr.tartur.fcaf;
 
-import fr.tartur.fcaf.libs.plugincomponents.commands.CommandHolder;
-import fr.tartur.fcaf.libs.plugincomponents.commands.data.TargetedCommandData;
-import fr.tartur.fcaf.plugincomponents.commands.CommandRegisterer;
-import fr.tartur.fcaf.plugincomponents.commands.FPlayerCommand;
-import fr.tartur.fcaf.plugincomponents.commands.TestCommand;
-import fr.tartur.fcaf.plugincomponents.commands.playerdata.AddCommand;
-import fr.tartur.fcaf.plugincomponents.commands.playerdata.RemoveCommand;
-import fr.tartur.fcaf.plugincomponents.commands.playerdata.SetCommand;
-import fr.tartur.fcaf.plugincomponents.events.EventRegisterer;
+import fr.tartur.fcaf.libs.plugin.commands.CommandHolder;
+import fr.tartur.fcaf.libs.plugin.commands.data.TargetedCommandData;
+import fr.tartur.fcaf.plugin.commands.CommandRegisterer;
+import fr.tartur.fcaf.plugin.commands.FPlayerCommand;
+import fr.tartur.fcaf.plugin.commands.TestCommand;
+import fr.tartur.fcaf.plugin.commands.playerdata.AddCommand;
+import fr.tartur.fcaf.plugin.commands.playerdata.RemoveCommand;
+import fr.tartur.fcaf.plugin.commands.playerdata.SetCommand;
+import fr.tartur.fcaf.plugin.events.EventRegisterer;
 import fr.tartur.fcaf.libs.data.database.BaseDatabaseConnection;
 import fr.tartur.fcaf.libs.data.database.DatabaseConnectionEstablisher;
 import fr.tartur.fcaf.user.FPlayerManager;

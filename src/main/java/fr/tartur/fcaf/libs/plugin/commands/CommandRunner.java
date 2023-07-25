@@ -1,4 +1,4 @@
-package fr.tartur.fcaf.libs.plugincomponents.commands;
+package fr.tartur.fcaf.libs.plugin.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Class used to define a simple command.
  * @author tarturr
- * @see fr.tartur.fcaf.libs.plugincomponents.commands.BaseCommand
+ * @see BaseCommand
  * @see org.bukkit.command.CommandExecutor
  */
 public abstract class CommandRunner extends BaseCommand {

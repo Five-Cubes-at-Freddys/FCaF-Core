@@ -1,10 +1,13 @@
-package fr.tartur.fcaf.plugincomponents.commands;
+package fr.tartur.fcaf.plugin.commands;
 
 import fr.tartur.fcaf.Core;
+import fr.tartur.fcaf.libs.plugin.commands.BaseCommand;
+import fr.tartur.fcaf.libs.plugin.commands.CommandHolder;
+import fr.tartur.fcaf.libs.plugin.commands.TargetedCommandRunner;
 import fr.tartur.fcaf.libs.plugincomponents.commands.*;
-import fr.tartur.fcaf.libs.plugincomponents.commands.data.CommandData;
-import fr.tartur.fcaf.libs.plugincomponents.commands.data.TargetedCommandData;
-import fr.tartur.fcaf.plugincomponents.BaseRegisterer;
+import fr.tartur.fcaf.libs.plugin.commands.data.CommandData;
+import fr.tartur.fcaf.libs.plugin.commands.data.TargetedCommandData;
+import fr.tartur.fcaf.plugin.BaseRegisterer;
 import fr.tartur.fcaf.user.FPlayerManager;
 
 import java.util.Objects;

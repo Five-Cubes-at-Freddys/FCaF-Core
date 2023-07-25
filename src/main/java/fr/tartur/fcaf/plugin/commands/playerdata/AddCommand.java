@@ -1,4 +1,4 @@
-package fr.tartur.fcaf.plugincomponents.commands.playerdata;
+package fr.tartur.fcaf.plugin.commands.playerdata;
 
 import fr.tartur.fcaf.common.log.MessageSender;
 import fr.tartur.fcaf.common.log.MessageType;

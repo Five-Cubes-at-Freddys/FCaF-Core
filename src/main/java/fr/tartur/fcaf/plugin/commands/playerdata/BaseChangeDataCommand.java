@@ -1,8 +1,8 @@
-package fr.tartur.fcaf.plugincomponents.commands.playerdata;
+package fr.tartur.fcaf.plugin.commands.playerdata;
 
 import fr.tartur.fcaf.common.log.MessageSender;
 import fr.tartur.fcaf.common.log.MessageType;
-import fr.tartur.fcaf.libs.plugincomponents.commands.TargetedCommandRunner;
+import fr.tartur.fcaf.libs.plugin.commands.TargetedCommandRunner;
 import fr.tartur.fcaf.user.FPlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

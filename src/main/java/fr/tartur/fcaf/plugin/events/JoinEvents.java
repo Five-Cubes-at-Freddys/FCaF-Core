@@ -1,4 +1,4 @@
-package fr.tartur.fcaf.plugincomponents.events;
+package fr.tartur.fcaf.plugin.events;
 
 import fr.tartur.fcaf.user.FPlayer;
 import fr.tartur.fcaf.user.FPlayerData;

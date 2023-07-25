@@ -1,6 +1,6 @@
-package fr.tartur.fcaf.plugincomponents.commands;
+package fr.tartur.fcaf.plugin.commands;
 
-import fr.tartur.fcaf.libs.plugincomponents.commands.CommandRunner;
+import fr.tartur.fcaf.libs.plugin.commands.CommandRunner;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 

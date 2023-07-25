@@ -1,7 +1,7 @@
-package fr.tartur.fcaf.plugincomponents.events;
+package fr.tartur.fcaf.plugin.events;
 
 import fr.tartur.fcaf.Core;
-import fr.tartur.fcaf.plugincomponents.BaseRegisterer;
+import fr.tartur.fcaf.plugin.BaseRegisterer;
 import fr.tartur.fcaf.user.FPlayerManager;
 import org.bukkit.plugin.PluginManager;
 

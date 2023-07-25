@@ -1,6 +1,6 @@
-package fr.tartur.fcaf.libs.plugincomponents.commands.data;
+package fr.tartur.fcaf.libs.plugin.commands.data;
 
-import fr.tartur.fcaf.libs.plugincomponents.commands.CommandHolder;
+import fr.tartur.fcaf.libs.plugin.commands.CommandHolder;
 import fr.tartur.fcaf.user.FPlayer;
 
 public class TargetedCommandData extends CommandData {

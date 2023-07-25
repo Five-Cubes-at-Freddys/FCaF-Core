@@ -1,6 +1,6 @@
-package fr.tartur.fcaf.libs.plugincomponents.commands;
+package fr.tartur.fcaf.libs.plugin.commands;
 
-import fr.tartur.fcaf.libs.plugincomponents.commands.data.TargetedCommandData;
+import fr.tartur.fcaf.libs.plugin.commands.data.TargetedCommandData;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * Class used to define a command intended to act on a FPlayer.
  * @author tarturr
- * @see fr.tartur.fcaf.libs.plugincomponents.commands.BaseCommand
+ * @see BaseCommand
  * @see org.bukkit.command.CommandExecutor
  */
 public abstract class TargetedCommandRunner extends BaseCommand {

@@ -1,6 +1,6 @@
-package fr.tartur.fcaf.libs.plugincomponents.commands;
+package fr.tartur.fcaf.libs.plugin.commands;
 
-import fr.tartur.fcaf.libs.plugincomponents.commands.data.CommandData;
+import fr.tartur.fcaf.libs.plugin.commands.data.CommandData;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

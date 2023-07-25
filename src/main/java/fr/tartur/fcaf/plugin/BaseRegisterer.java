@@ -1,4 +1,4 @@
-package fr.tartur.fcaf.plugincomponents;
+package fr.tartur.fcaf.plugin;
 
 import fr.tartur.fcaf.Core;
 import fr.tartur.fcaf.user.FPlayerManager;

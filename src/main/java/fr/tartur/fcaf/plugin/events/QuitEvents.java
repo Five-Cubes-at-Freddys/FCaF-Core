@@ -1,4 +1,4 @@
-package fr.tartur.fcaf.plugincomponents.events;
+package fr.tartur.fcaf.plugin.events;
 
 import fr.tartur.fcaf.user.FPlayerManager;
 import org.bukkit.entity.Player;
