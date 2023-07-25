@@ -48,9 +48,9 @@ public abstract class BaseCommand implements TabExecutor {
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         int length = args.length - 1;
+        String commandName = args[length];
 
         if (length > 0) {
-            String commandName = args[length];
             Optional<BaseCommand> foundCommand = this.commandData.getCommandHolder().getCommands().stream()
                     .filter(baseCommand -> baseCommand.getName().equals(commandName))
                     .findAny();
@@ -58,20 +58,28 @@ public abstract class BaseCommand implements TabExecutor {
             foundCommand.ifPresent(this::setCorrespondingCommand);
         }
 
-        if (!this.hasCorrespondingCommand()) {
-            List<BaseCommand> commands = this.commandData.getCommandHolder().getCommands().stream()
-                    .filter(targetedCommand -> targetedCommand.getData().getIndex() == length)
-                    .toList();
-
-            if (!commands.isEmpty()) {
-                return commands.stream().map(BaseCommand::getName).toList();
+        if (this.hasCorrespondingCommand()) {
+            if (length < this.correspondingCommand.getData().getIndex()) {
+                this.resetCorrespondingCommand();
+            } else if (length == this.correspondingCommand.getData().getIndex()) {
+                if (!commandName.equals(this.correspondingCommand.getName())) {
+                    this.resetCorrespondingCommand();
+                }
             } else {
-                return Bukkit.getOnlinePlayers().stream()
-                        .map(Player::getName)
-                        .toList();
+                return this.correspondingCommand.onTabComplete(sender, command, label, args);
             }
+        }
+
+        List<BaseCommand> commands = this.commandData.getCommandHolder().getCommands().stream()
+                .filter(targetedCommand -> targetedCommand.getData().getIndex() == length && targetedCommand.getName().startsWith(commandName))
+                .toList();
+
+        if (!commands.isEmpty()) {
+            return commands.stream().map(BaseCommand::getName).toList();
         } else {
-            return this.correspondingCommand.onTabComplete(sender, command, label, args);
+            return Bukkit.getOnlinePlayers().stream()
+                    .map(Player::getName)
+                    .toList();
         }
     }
 
