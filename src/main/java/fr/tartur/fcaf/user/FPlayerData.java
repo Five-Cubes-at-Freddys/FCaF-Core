@@ -58,11 +58,20 @@ public class FPlayerData {
                 update.setDate(6, new Date(System.currentTimeMillis()));
                 update.setDate(7, new Date(System.currentTimeMillis()));
             } else {
-                update = usersDatabase.get().prepareStatement("INSERT INTO " + usersDatabase.getUsersTableName() + "(fazcoins, fazbadges, experience, lastconnexion) VALUES (?, ?, ?, ?)");
+                System.out.println("UPDATE");
+                update = usersDatabase.get().prepareStatement("""
+                    UPDATE %s
+                    SET fazcoins = ?,
+                        fazbadges = ?,
+                        experience = ?,
+                        lastconnexion = ?
+                    WHERE uuid = ?
+                """.formatted(usersDatabase.getUsersTableName()));
                 update.setInt(1, this.fazCoins);
                 update.setInt(2, this.fazBadges);
                 update.setInt(3, this.experience);
                 update.setDate(4, new Date(System.currentTimeMillis()));
+                update.setString(5, this.player.bukkit().getUniqueId().toString());
             }
 
             update.executeUpdate();

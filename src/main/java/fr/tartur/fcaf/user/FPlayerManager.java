@@ -38,7 +38,9 @@ public class FPlayerManager {
         return connectedPlayers.stream().filter(fPlayer -> fPlayer.bukkit().getUniqueId() == player.getUniqueId()).findFirst().orElseThrow();
     }
 
-    public void disconnectPlayer(FPlayer player) {
+    public void disconnectPlayer(Player bPlayer) {
+        FPlayer player = this.getConnectedPlayer(bPlayer);
+
         if (this.connectedPlayers.contains(player)) {
             player.data().update(this.usersDatabase, false);
             this.connectedPlayers.remove(player);
