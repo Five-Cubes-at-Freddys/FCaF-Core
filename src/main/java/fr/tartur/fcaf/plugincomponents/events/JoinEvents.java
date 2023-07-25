@@ -22,6 +22,8 @@ public class JoinEvents implements Listener {
         FPlayer fPlayer = this.connectedFPlayers.connectPlayer(player);
         FPlayerData data = fPlayer.data();
 
+        event.setJoinMessage("§f[§2+§f] §e" + player.getName());
+
         player.sendMessage("§aBonjour, §e" + player.getName() + " §a!\n§6Tu as §c" + data.getFazCoins() + " FC§6, " +
                 "§c" + data.getFazBadges() + " FB §6et §c" + data.getExperience() + " EXP§6.");
     }

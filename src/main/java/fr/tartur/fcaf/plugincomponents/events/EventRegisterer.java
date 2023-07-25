@@ -15,5 +15,6 @@ public class EventRegisterer extends BaseRegisterer {
     public void registerAll() {
         PluginManager manager = plugin.getServer().getPluginManager();
         manager.registerEvents(new JoinEvents(this.playerManager), plugin);
+        manager.registerEvents(new QuitEvents(this.playerManager), plugin);
     }
 }
