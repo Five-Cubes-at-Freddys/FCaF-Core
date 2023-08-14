@@ -1,6 +1,8 @@
 package fr.tartur.fcaf.libs.plugin.commands;
 
 import fr.tartur.fcaf.libs.plugin.commands.data.CommandData;
+import fr.tartur.fcaf.libs.plugin.commands.data.TargetedCommandData;
+import fr.tartur.fcaf.user.FPlayerManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -23,6 +25,7 @@ import java.util.Optional;
 public abstract class BaseCommand implements TabExecutor {
 
     protected final String name;
+    protected final String commandUsage;
 
     protected CommandData commandData;
 
@@ -31,12 +34,26 @@ public abstract class BaseCommand implements TabExecutor {
     /**
      * Default class constructor.
      *
-     * @param name        This command name.
+     * @param name         This command name.
+     * @param commandUsage This command usage.
+     */
+    public BaseCommand(String name, String commandUsage) {
+        this.name = name;
+
+        this.commandData = null;
+        this.commandUsage = commandUsage;
+    }
+
+    /**
+     * Default class constructor.
+     *
+     * @param name         This command name.
      */
     public BaseCommand(String name) {
         this.name = name;
 
         this.commandData = null;
+        this.commandUsage = "§cUndefined command usage.";
     }
 
     @Override
@@ -110,9 +127,37 @@ public abstract class BaseCommand implements TabExecutor {
         return commandData;
     }
 
+    public String getCommandUsage() {
+        return commandUsage;
+    }
+
     public BaseCommand setData(CommandData commandData) {
         this.commandData = commandData;
         return this;
+    }
+
+    // TODO: Split all specific data assignments into another specialized class.
+    public void initData(int commandIndex, FPlayerManager playerManager) {
+        if (!this.hasData()) {
+            if (this instanceof TargetedCommandRunner targetedCommandRunner) {
+                targetedCommandRunner.setData(new TargetedCommandData());
+
+                if (commandIndex == targetedCommandRunner.getData().getPlayerIndex()) {
+                    commandIndex++;
+                }
+            } else {
+                this.setData(new CommandData());
+            }
+        }
+
+        for (BaseCommand subCommand : this.getData().getCommandHolder().getCommands()) {
+            subCommand.initData(commandIndex + 1, playerManager);
+        }
+
+        CommandData data = this.getData();
+        data.setIndex(commandIndex);
+        data.setPlayerManager(playerManager);
+        this.setData(data);
     }
 
     public String getName() {

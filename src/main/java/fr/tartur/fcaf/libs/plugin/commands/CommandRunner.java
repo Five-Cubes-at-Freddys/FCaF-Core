@@ -15,7 +15,17 @@ public abstract class CommandRunner extends BaseCommand {
     /**
      * Default class constructor.
      *
-     * @param name        This command name.
+     * @param name         This command name.
+     * @param commandUsage This command usage.
+     */
+    public CommandRunner(String name, String commandUsage) {
+        super(name, commandUsage);
+    }
+
+    /**
+     * Default class constructor.
+     *
+     * @param name         This command name.
      */
     public CommandRunner(String name) {
         super(name);

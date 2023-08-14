@@ -16,6 +16,17 @@ public abstract class TargetedCommandRunner extends BaseCommand {
     protected TargetedCommandData commandData;
 
     /**
+     * Default class constructor.
+     *
+     * @param name         This command name.
+     * @param commandUsage This command usage.
+     */
+    public TargetedCommandRunner(String name, String commandUsage) {
+        super(name, commandUsage);
+        this.commandData = (TargetedCommandData) super.commandData;
+    }
+
+    /**
      * Class constructor.
      * @param name This command name.
      */
