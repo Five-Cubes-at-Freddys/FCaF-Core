@@ -45,6 +45,8 @@ public final class Core extends JavaPlugin {
                 .addCommand(new TestCommand())
                 .build()
         );
+
+        commands.registerHelpCommand("aide");
         commands.registerAll();
 
         EventRegisterer events = new EventRegisterer(this, playerManager);

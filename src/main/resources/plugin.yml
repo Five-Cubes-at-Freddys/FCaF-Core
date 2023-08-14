@@ -12,3 +12,5 @@ commands:
     permission: fcaf.fplayer
   test:
     description: This is a test command.
+  aide:
+    description: Help command.
