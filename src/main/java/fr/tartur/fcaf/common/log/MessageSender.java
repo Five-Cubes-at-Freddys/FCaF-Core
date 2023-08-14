@@ -16,7 +16,7 @@ public class MessageSender {
         if (messages.length > 0) {
             String lastArg = messages[messages.length - 1];
 
-            if (!(lastArg.equals("!") || lastArg.equals("?")) && !lastArg.endsWith(".")) {
+            if (!(lastArg.equals("!") || lastArg.equals("?") || lastArg.equals(":")) && !lastArg.endsWith(".")) {
                 message.append(type.getColor()).append('.');
             }
         }
