@@ -1,5 +1,8 @@
 package fr.tartur.fcaf.libs.plugin.commands;
 
+import fr.tartur.fcaf.common.log.MessageSender;
+import fr.tartur.fcaf.common.log.MessageType;
+import fr.tartur.fcaf.libs.plugin.commands.data.CommandUsage;
 import fr.tartur.fcaf.libs.plugin.commands.data.TargetedCommandData;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -21,7 +24,7 @@ public abstract class TargetedCommandRunner extends BaseCommand {
      * @param name         This command name.
      * @param commandUsage This command usage.
      */
-    public TargetedCommandRunner(String name, String commandUsage) {
+    public TargetedCommandRunner(String name, CommandUsage commandUsage) {
         super(name, commandUsage);
         this.commandData = (TargetedCommandData) super.commandData;
     }
@@ -64,7 +67,7 @@ public abstract class TargetedCommandRunner extends BaseCommand {
 
                     continue;
                 } else {
-                    sender.sendMessage("§8[§4FCaF§8] §cLe joueur §e" + arg + "§c n'a pas pu être trouvé.");
+                    MessageSender.tell(MessageType.ERROR, sender, "Le joueur §e" + arg, "n'a pas pu être trouvé");
                     return false;
                 }
             }
@@ -80,7 +83,13 @@ public abstract class TargetedCommandRunner extends BaseCommand {
         }
 
         if (!run(sender, tailFromCommandIndex(args))) {
-            sender.sendMessage("§cTapez \"/aide\" pour obtenir de l'aide.");
+            if (super.hasCommandUsage()) {
+                MessageSender.tell(MessageType.ERROR, sender, "Erreur de l'utilisation de la commande. " +
+                        "Usage correct : " + getCommandUsage());
+            } else {
+                sender.sendMessage("§cTapez \"/aide\" pour obtenir de l'aide.");
+            }
+
             return false;
         }
 

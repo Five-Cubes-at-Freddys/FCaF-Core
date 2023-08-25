@@ -1,5 +1,6 @@
 package fr.tartur.fcaf.libs.plugin.commands;
 
+import fr.tartur.fcaf.libs.plugin.commands.data.CommandUsage;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -18,7 +19,7 @@ public abstract class CommandRunner extends BaseCommand {
      * @param name         This command name.
      * @param commandUsage This command usage.
      */
-    public CommandRunner(String name, String commandUsage) {
+    public CommandRunner(String name, CommandUsage commandUsage) {
         super(name, commandUsage);
     }
 
@@ -55,6 +56,11 @@ public abstract class CommandRunner extends BaseCommand {
             }
         }
 
-        return run(sender, tailFromCommandIndex(args));
+        if (!run(sender, tailFromCommandIndex(args))) {
+            sender.sendMessage("§cTapez \"/aide\" pour obtenir de l'aide.");
+            return false;
+        }
+
+        return true;
     }
 }

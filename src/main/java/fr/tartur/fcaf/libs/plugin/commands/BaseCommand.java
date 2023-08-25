@@ -1,6 +1,7 @@
 package fr.tartur.fcaf.libs.plugin.commands;
 
 import fr.tartur.fcaf.libs.plugin.commands.data.CommandData;
+import fr.tartur.fcaf.libs.plugin.commands.data.CommandUsage;
 import fr.tartur.fcaf.libs.plugin.commands.data.TargetedCommandData;
 import fr.tartur.fcaf.user.FPlayerManager;
 import org.bukkit.Bukkit;
@@ -37,11 +38,12 @@ public abstract class BaseCommand implements TabExecutor {
      * @param name         This command name.
      * @param commandUsage This command usage.
      */
-    public BaseCommand(String name, String commandUsage) {
+    public BaseCommand(String name, CommandUsage commandUsage) {
         this.name = name;
 
         this.commandData = null;
-        this.commandUsage = commandUsage;
+        commandUsage.setCommandName(name);
+        this.commandUsage = commandUsage.toString();
     }
 
     /**
@@ -53,7 +55,7 @@ public abstract class BaseCommand implements TabExecutor {
         this.name = name;
 
         this.commandData = null;
-        this.commandUsage = "§cUndefined command usage.";
+        this.commandUsage = CommandUsage.DEFAULT_USAGE;
     }
 
     @Override
@@ -76,12 +78,9 @@ public abstract class BaseCommand implements TabExecutor {
         }
 
         if (this.hasCorrespondingCommand()) {
-            if (length < this.correspondingCommand.getData().getIndex()) {
+            if (length < this.correspondingCommand.getData().getIndex() ||
+                    length == this.correspondingCommand.getData().getIndex() && !commandName.equals(this.correspondingCommand.getName())) {
                 this.resetCorrespondingCommand();
-            } else if (length == this.correspondingCommand.getData().getIndex()) {
-                if (!commandName.equals(this.correspondingCommand.getName())) {
-                    this.resetCorrespondingCommand();
-                }
             } else {
                 return this.correspondingCommand.onTabComplete(sender, command, label, args);
             }
@@ -180,5 +179,9 @@ public abstract class BaseCommand implements TabExecutor {
         if (this.hasCorrespondingCommand()) {
             this.correspondingCommand = null;
         }
+    }
+
+    public boolean hasCommandUsage() {
+        return this.commandUsage.equals(CommandUsage.DEFAULT_USAGE);
     }
 }
