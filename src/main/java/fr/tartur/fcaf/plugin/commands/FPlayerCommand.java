@@ -1,8 +1,8 @@
 package fr.tartur.fcaf.plugin.commands;
 
 import fr.tartur.fcaf.libs.plugin.commands.TargetedCommandRunner;
-import fr.tartur.fcaf.libs.plugin.commands.data.CommandOptionsBuilder;
-import fr.tartur.fcaf.libs.plugin.commands.data.CommandUsageBuilder;
+import fr.tartur.fcaf.libs.plugin.commands.data.CommandOptions;
+import fr.tartur.fcaf.libs.plugin.commands.data.CommandUsage;
 import fr.tartur.fcaf.user.FPlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -11,13 +11,12 @@ import org.jetbrains.annotations.NotNull;
 public class FPlayerCommand extends TargetedCommandRunner {
 
     public FPlayerCommand() {
-        super("fplayer", new CommandUsageBuilder()
-                .setCommandName("fplayer")
-                .setOptions(new CommandOptionsBuilder()
-                        .addOptionalOptions(new CommandOptionsBuilder()
+        super("fplayer", new CommandUsage.Builder()
+                .setOptions(new CommandOptions.Builder()
+                        .addOptionalOptions(new CommandOptions.Builder()
                                 .addRequiredOptions("joueur")
-                                .addRequiredOptions("add", "remove", "set", "reset")
-                                .addRequiredOptions("montant", "fb", "fc", "exp")
+                                .addRequiredOptions("add", "remove", "set")
+                                .addRequiredOptions("montant")
                                 .addRequiredOptions("fb", "fc", "exp")
                                 .build())
                         .build())

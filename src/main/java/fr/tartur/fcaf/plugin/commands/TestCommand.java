@@ -1,7 +1,7 @@
 package fr.tartur.fcaf.plugin.commands;
 
 import fr.tartur.fcaf.libs.plugin.commands.CommandRunner;
-import fr.tartur.fcaf.libs.plugin.commands.data.CommandUsageBuilder;
+import fr.tartur.fcaf.libs.plugin.commands.data.CommandUsage;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
@@ -10,8 +10,7 @@ public class TestCommand extends CommandRunner {
      * Default class constructor.
      */
     public TestCommand() {
-        super("test", new CommandUsageBuilder()
-                .setCommandName("test")
+        super("test", new CommandUsage.Builder()
                 .setDescription("Commande de test, envoie un simple message")
                 .build());
     }

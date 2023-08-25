@@ -4,8 +4,8 @@ import fr.tartur.fcaf.common.log.MessageSender;
 import fr.tartur.fcaf.common.log.MessageType;
 import fr.tartur.fcaf.libs.plugin.commands.BaseCommand;
 import fr.tartur.fcaf.libs.plugin.commands.CommandRunner;
-import fr.tartur.fcaf.libs.plugin.commands.data.CommandOptionsBuilder;
-import fr.tartur.fcaf.libs.plugin.commands.data.CommandUsageBuilder;
+import fr.tartur.fcaf.libs.plugin.commands.data.CommandOptions;
+import fr.tartur.fcaf.libs.plugin.commands.data.CommandUsage;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
@@ -20,9 +20,8 @@ public class HelpCommand extends CommandRunner {
      * Default class constructor.
      */
     public HelpCommand(String name, List<BaseCommand> commands) {
-        super(name, new CommandUsageBuilder()
-                .setCommandName(name)
-                .setOptions(new CommandOptionsBuilder()
+        super(name, new CommandUsage.Builder()
+                .setOptions(new CommandOptions.Builder()
                         .addOptionalOptions("commande")
                         .build())
                 .setDescription("Commande d'aide")
