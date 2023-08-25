@@ -15,8 +15,9 @@ public class MessageSender {
 
         if (messages.length > 0) {
             String lastArg = messages[messages.length - 1];
+            char lastChar = lastArg.charAt(lastArg.length() - 1);
 
-            if (!(lastArg.equals("!") || lastArg.equals("?") || lastArg.equals(":")) && !lastArg.endsWith(".")) {
+            if (Character.isDigit(lastChar) || Character.isLetter(lastChar)) {
                 message.append(type.getColor()).append('.');
             }
         }
