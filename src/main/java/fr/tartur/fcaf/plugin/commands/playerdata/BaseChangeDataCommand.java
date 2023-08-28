@@ -30,6 +30,7 @@ public abstract class BaseChangeDataCommand extends TargetedCommandRunner implem
         if (args.length == 2) {
             FPlayer target = super.getData().getTarget();
             Player bTarget = target.bukkit();
+            bTarget.sendMessage(this.getData().getPermission().getName());
 
             try {
                 int amount = Integer.parseInt(args[0]);

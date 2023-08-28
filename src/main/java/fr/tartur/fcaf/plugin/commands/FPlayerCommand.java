@@ -26,6 +26,7 @@ public class FPlayerCommand extends TargetedCommandRunner {
 
     @Override
     protected boolean run(@NotNull CommandSender sender, @NotNull String[] args) {
+        sender.sendMessage(this.getData().getPermission().getName());
         if (sender instanceof Player bPlayer) {
             FPlayer player = super.getData().getPlayerManager().getConnectedPlayer(bPlayer);
             bPlayer.sendMessage("§bVos données §f:" +
