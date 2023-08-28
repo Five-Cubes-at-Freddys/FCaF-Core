@@ -9,6 +9,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabExecutor;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -135,8 +136,7 @@ public abstract class BaseCommand implements TabExecutor {
         return this;
     }
 
-    // TODO: Split all specific data assignments into another specialized class.
-    public void initData(int commandIndex, FPlayerManager playerManager) {
+    public void initData(int commandIndex, FPlayerManager playerManager, String permission, boolean permissionEnabled) {
         if (!this.hasData()) {
             if (this instanceof TargetedCommandRunner targetedCommandRunner) {
                 targetedCommandRunner.setData(new TargetedCommandData());
@@ -150,13 +150,23 @@ public abstract class BaseCommand implements TabExecutor {
         }
 
         for (BaseCommand subCommand : this.getData().getCommandHolder().getCommands()) {
-            subCommand.initData(commandIndex + 1, playerManager);
+            subCommand.initData(commandIndex + 1, playerManager, (permission.isEmpty() ? "" : permission + ".") + this.getName() + ".", permissionEnabled);
         }
 
         CommandData data = this.getData();
         data.setIndex(commandIndex);
         data.setPlayerManager(playerManager);
+        data.setPermissionEnabled(permissionEnabled);
+
+        if (data.isPermissionEnabled()) {
+            data.setPermission(new Permission(commandIndex >= 0 ? permission + this.getName() : this.getName() + ".use"));
+        }
+
         this.setData(data);
+    }
+
+    public void initData(FPlayerManager playerManager, boolean permissionEnabled) {
+        initData(-1, playerManager, "", permissionEnabled); // Starting to -1 because parent commands are not considered as arguments
     }
 
     public String getName() {

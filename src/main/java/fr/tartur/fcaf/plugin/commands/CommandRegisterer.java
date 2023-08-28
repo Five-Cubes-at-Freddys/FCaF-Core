@@ -20,14 +20,14 @@ public class CommandRegisterer extends BaseRegisterer {
     @Override
     public void registerAll() {
         this.holder.getCommands().forEach(command -> {
-            command.initData(-1, super.playerManager); // Starting to -1 because parent commands are not considered as arguments
+            command.initData(super.playerManager, this.holder.isPermissionEnabled());
             Objects.requireNonNull(super.plugin.getCommand(command.getName())).setExecutor(command);
         });
     }
 
     public void registerHelpCommand(String commandName) {
         HelpCommand command = new HelpCommand(commandName, this.holder.getCommands());
-        command.initData(-1, super.playerManager);
+        command.initData(super.playerManager, false);
         this.holder.getCommands().add(command);
         Objects.requireNonNull(super.plugin.getCommand(commandName)).setExecutor(command);
     }

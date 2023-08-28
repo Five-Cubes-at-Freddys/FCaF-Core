@@ -2,6 +2,7 @@ package fr.tartur.fcaf.libs.plugin.commands.data;
 
 import fr.tartur.fcaf.libs.plugin.commands.CommandHolder;
 import fr.tartur.fcaf.user.FPlayerManager;
+import org.bukkit.permissions.Permission;
 
 public class CommandData {
 
@@ -9,6 +10,8 @@ public class CommandData {
 
     private FPlayerManager playerManager;
     private int index;
+    private Permission permission;
+    private boolean permissionEnabled;
 
     public CommandData(CommandHolder commandHolder) {
         this.commandHolder = commandHolder;
@@ -38,4 +41,19 @@ public class CommandData {
         this.index = index;
     }
 
+    public Permission getPermission() {
+        return permission;
+    }
+
+    public void setPermission(Permission permission) {
+        this.permission = permission;
+    }
+
+    public boolean isPermissionEnabled() {
+        return permissionEnabled;
+    }
+
+    public void setPermissionEnabled(boolean permissionEnabled) {
+        this.permissionEnabled = permissionEnabled;
+    }
 }

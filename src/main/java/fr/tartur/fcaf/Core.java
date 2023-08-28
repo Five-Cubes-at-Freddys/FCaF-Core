@@ -43,6 +43,7 @@ public final class Core extends JavaPlugin {
                         ))
                 )
                 .addCommand(new TestCommand())
+                .setPermissionEnabled(true)
                 .build()
         );
 
